@@ -110,8 +110,8 @@ def main():
         "--annotations_dir",
         default=None,
         type=str,
-        required=True,
-        help="Directory where annotations file is.",
+        required=False,
+        help="Directory where annotations file is [DEPRECATED].",
     )
 
     parser.add_argument(
@@ -190,9 +190,9 @@ def main():
     from util.metrics import MetricLogger
     from datasets import get_coco_api_from_dataset
     from datasets.flickr_eval import FlickrEvaluator
-    # from models.postprocessors import PostProcess, PostProcessFlickr
 
-    flickr_anns = json.load(open(os.path.join(args.annotations_dir, 'flickr_test_masked.json')))
+    with open('data/flickr_test_masked.json') as f:
+        flickr_anns = json.load(f)
 
     if torch.cuda.is_available():
         device = 'cuda:0'
@@ -214,7 +214,7 @@ def main():
 
     #Create coco-formatted dataset
     test_dset = build_dataset(img_dir = args.img_dir, 
-                              ann_file = os.path.join(args.annotations_dir, 'flickr_test_masked.json'), 
+                              ann_file = 'data/flickr_test_masked.json', 
                               image_set = 'val', 
                               text_encoder_type= "roberta-base")
 
