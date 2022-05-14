@@ -326,9 +326,12 @@ def main():
             for f in mask_res:
                 mask_res_collector.append(f)
             
-            pkl_file = open(os.path.join(args.output_dir, f'{args.pretrained_model}_{args.batch_size}_masked_token_results.pkl'), 'wb')
+            pkl_file = open(os.path.join(args.output_dir, f'{args.gpu_type}_{args.pretrained_model}_{args.batch_size}_masked_token_results.pkl'), 'wb')
             pickle.dump(mask_res_collector, pkl_file)
             pkl_file.close()
+
+            with open(os.path.join(args.output_dir, f'{args.gpu_type}_{args.pretrained_model}_{args.batch_size}_flickr_results.pkl'), 'wb') as f:
+                pickle.dump(flickr_res, f)
 
             add_time = {'total_cumulative_time': time.time()-start_time,
                         'batch_time': batch_end_time - batch_start_time,
@@ -337,7 +340,7 @@ def main():
             
 
             time_df = time_df.append(add_time, ignore_index = True)
-            time_df.to_csv(os.path.join(args.output_dir, f'{args.pretrained_model}_{args.batch_size}_eval_time.csv'))
+            time_df.to_csv(os.path.join(args.output_dir, f'{args.gpu_type}_{args.pretrained_model}_{args.batch_size}_eval_time.csv'))
             i+=1
 
 
