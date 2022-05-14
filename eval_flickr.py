@@ -326,6 +326,9 @@ def main():
             for f in mask_res:
                 mask_res_collector.append(f)
             
+            for f in mask_res:
+                flickr_res_collector.append(f)
+            
             pkl_file = open(os.path.join(args.output_dir, f'{args.gpu_type}_{args.pretrained_model}_{args.batch_size}_masked_token_results.pkl'), 'wb')
             pickle.dump(mask_res_collector, pkl_file)
             pkl_file.close()
