@@ -326,7 +326,7 @@ def main():
             for f in mask_res:
                 mask_res_collector.append(f)
             
-            for f in mask_res:
+            for f in flickr_res:
                 flickr_res_collector.append(f)
             
             pkl_file = open(os.path.join(args.output_dir, f'{args.gpu_type}_{args.pretrained_model}_{args.batch_size}_masked_token_results.pkl'), 'wb')
@@ -334,7 +334,7 @@ def main():
             pkl_file.close()
 
             with open(os.path.join(args.output_dir, f'{args.gpu_type}_{args.pretrained_model}_{args.batch_size}_flickr_results.pkl'), 'wb') as f:
-                pickle.dump(flickr_res, f)
+                pickle.dump(flickr_res_collector, f)
 
             add_time = {'total_cumulative_time': time.time()-start_time,
                         'batch_time': batch_end_time - batch_start_time,
