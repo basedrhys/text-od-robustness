@@ -95,8 +95,8 @@ During MDETR inference we recorded GPU utilisation statistics; the diagram above
 
 ![MDETR Model Performance](img/mdetr-performance1.png)
 
-The model performed xyz
+As expected, accuracy on the negative detection task (i.e. MDETR does not make a predict when an object is not in the image) increases linearly with the confidence score threshold for bounding box predictsion.
 
 ![MDETR Model Performance](img/mdetr-performance2.png)
 
-Looking at recall, the model did xyz
+Our primary goal is to test the negative detection task but we still want the models to be able to identify objects that *are* in the image. We count a correct prediction is IOU between a predicted box and target box > 0.5. We can see that as we increase the score cutoff for bounding box predictions, recall on existent objects drops quicky. It appears that a confidence threshold of ~0.45 achieves a balanced between recall and accuracy on the negative detection task with both values ~ 55%.
